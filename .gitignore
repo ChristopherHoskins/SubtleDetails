@@ -1,0 +1,13 @@
+*/Build
+*/Binaries
+*/DerivedDataCache
+*/Intermediate
+*/Saved
+BeginningProject/Content/StarterContent/
+
+###############
+# VS Generated Files  #
+###############
+
+*.VC.db
+BeginningProject/BeginningProject.VC.VC.opendb
