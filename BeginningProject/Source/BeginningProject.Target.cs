@@ -10,5 +10,7 @@ public class BeginningProjectTarget : TargetRules
 		Type = TargetType.Game;
 
 		ExtraModuleNames.AddRange( new string[] { "BeginningProject" } );
+    bUseUnityBuild = false;
+    bUsePCHFiles = false;
 	}
 }
