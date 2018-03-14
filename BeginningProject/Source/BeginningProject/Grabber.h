@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/InputComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BEGINNINGPROJECT_API UGrabber : public UActorComponent
@@ -26,4 +27,10 @@ public:
 
 private:
   float reach = 100.0f;
+
+  UPhysicsHandleComponent *physicsHandle = nullptr;
+  UInputComponent *input = nullptr;
+
+  // Ray-cast and grab whats in reach
+  void Grab();
 };
