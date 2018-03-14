@@ -7,6 +7,9 @@
 
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "CollisionQueryParams.h"
+
+#define OUT
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -40,14 +43,13 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
   //UE_LOG(LogTemp, Warning, TEXT("Location: %s Rotation: %s"), *viewLocation.ToString(), *viewRotation.ToString())
 
   // Draw a red trace in the world to visual
-  FVector unitVector = FVector(1.0f, 1.0f, 1.0);
-  FVector LineTraceEnd = viewLocation + viewRotation * unitVector * reach;
+  FVector lineTraceEnd = viewLocation + viewRotation.Vector() * reach;
 
   // Ray-cast out to reach distance
   DrawDebugLine(
     GetWorld(),
     viewLocation,
-    LineTraceEnd,
+    lineTraceEnd,
     FColor(255, 0, 0),
     false,
     0.0f,
@@ -55,7 +57,24 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
     10.0f
   );
 
-  // See what we hit
+  // Setup query parameters
+  FCollisionQueryParams traceParameters(FName(TEXT("")), false, GetOwner());
 
+  // Line-trace
+  FHitResult hitResults;
+  GetWorld()->LineTraceSingleByObjectType(
+    OUT hitResults,
+    viewLocation,
+    lineTraceEnd,
+    FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+    traceParameters
+  );
+
+  // See what we hit
+  AActor* hitActor = hitResults.GetActor();
+  if (hitActor)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Actor hit: %s"), *(hitActor->GetName()))
+  }
 }
 
