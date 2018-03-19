@@ -35,6 +35,9 @@ private:
   void Grab();
   void Release();
 
+  FVector getLineTraceStart();
+  FVector getLineTraceEnd();
+
   // Find (assumed) attached physics handle
   void findPhysicsHandleComponent();
 
