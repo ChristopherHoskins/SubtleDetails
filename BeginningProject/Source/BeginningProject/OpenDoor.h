@@ -7,6 +7,8 @@
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
+#define OUT
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BEGINNINGPROJECT_API UOpenDoor : public UActorComponent
 {
@@ -21,6 +23,7 @@ protected:
 	virtual void BeginPlay() override;
   void OpenDoor();
   void CloseDoor();
+  float GetTotalMassOfActorsOnPlate();
 
 public:	
 	// Called every frame
@@ -39,6 +42,5 @@ private:
   float lastDoorOpenTime;
   float originalYaw;
 
-  AActor *actorThatOpens; // Remember pawn inherits from actor
   AActor *owner;
 };
