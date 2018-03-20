@@ -69,6 +69,7 @@ void UGrabber::Grab()
   // attach physics handle
   if (actorHit)
   {
+    if (!physicsHandle) { return; }
     physicsHandle->GrabComponent(
       componentToGrab,
       NAME_None,
@@ -79,6 +80,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+  if (!physicsHandle) { return; }
   physicsHandle->ReleaseComponent();
 }
 
@@ -103,6 +105,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
   FVector lineTraceEnd = getLineTraceEnd();
+
+  if (!physicsHandle) { return; }
 
   // If the physics handle is attached
   if (physicsHandle->GrabbedComponent)

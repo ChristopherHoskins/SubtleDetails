@@ -34,7 +34,7 @@ private:
   float openAngle;
 
   UPROPERTY(EditAnywhere)
-  ATriggerVolume *pressurePlate;
+  ATriggerVolume *pressurePlate = nullptr;
 
   UPROPERTY(EditAnywhere)
   float doorCloseDelay = 1.0f;
@@ -42,5 +42,5 @@ private:
   float lastDoorOpenTime;
   float originalYaw;
 
-  AActor *owner;
+  AActor *owner = nullptr;
 };
