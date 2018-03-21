@@ -9,6 +9,9 @@
 
 #define OUT
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseRequest);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BEGINNINGPROJECT_API UOpenDoor : public UActorComponent
 {
@@ -21,26 +24,26 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-  void OpenDoor();
-  void CloseDoor();
   float GetTotalMassOfActorsOnPlate();
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-private:
-  UPROPERTY(EditAnywhere)
-  float openAngle;
+  UPROPERTY(BlueprintAssignable)
+  FOnOpenRequest onOpenRequest;
 
+  UPROPERTY(BlueprintAssignable)
+  FOnCloseRequest onCloseRequest;
+
+private:
   UPROPERTY(EditAnywhere)
   ATriggerVolume *pressurePlate = nullptr;
 
-  UPROPERTY(EditAnywhere)
-  float doorCloseDelay = 1.0f;
-
-  float lastDoorOpenTime;
   float originalYaw;
+
+  UPROPERTY(EditAnywhere)
+  float triggerMass = 30.0f;
 
   AActor *owner = nullptr;
 };
